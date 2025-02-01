@@ -16,7 +16,7 @@ module Geocoder
     end
 
     def apple_maps_url : URI
-      URI.parse("https://maps.apple.com/?ll=#{to_s}")
+      URI.parse "https://maps.apple.com/?ll=#{to_s}"
     end
 
     def google_maps_url : URI
