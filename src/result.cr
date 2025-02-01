@@ -11,7 +11,7 @@ module Geocoder
     def initialize(*, @latitude, @longitude)
     end
 
-    def to_s(io)  : Nil
+    def to_s(io) : Nil
       io << latitude << ',' << longitude
     end
 
