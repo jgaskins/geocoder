@@ -8,9 +8,26 @@ module Geocoder
   class Nominatim < Backend
     def search(query : String) : Array(Result)
       search!(query).map do |result|
+        address = {result.address.house_number, result.address.road}
+        if address[0] || address[1]
+          address = address.join(' ').strip
+        else
+          address = nil
+        end
         Result.new(
           latitude: result.lat.to_f,
           longitude: result.lon.to_f,
+          address: Address.new(
+            street1: address,
+            neighborhood: result.address.neighbourhood,
+            municipality: result.address.municipality,
+            suburb: result.address.suburb,
+            city: result.address.city,
+            county: result.address.county,
+            state: result.address.state,
+            zip: result.address.postcode,
+            country: result.address.country,
+          ),
         )
       end
     end
@@ -57,6 +74,7 @@ module Geocoder
 
       struct Address
         include JSON::Serializable
+        # include JSON::Serializable::Unmapped
 
         # I don't know if any of these are guaranteed
 
@@ -67,6 +85,11 @@ module Geocoder
         getter postcode : String?
         getter country : String?
         getter country_code : String?
+        getter leisure : String?
+        getter neighbourhood : String?
+        getter suburb : String?
+        getter municipality : String?
+        getter county : String?
       end
 
       getter boundingbox : Array(String)

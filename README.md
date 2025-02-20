@@ -1,6 +1,6 @@
 # geocoder
 
-Allows geocoding and reverse-geocoding using various backends for lookup.
+Allows geocoding and reverse-geocoding using swappable backends for lookup.
 
 ## Installation
 
@@ -18,13 +18,10 @@ Allows geocoding and reverse-geocoding using various backends for lookup.
 
 ```crystal
 require "geocoder"
+
+Geocoder.search "1060 W Addison, Chicago, IL"
+# => [Geocoder::Result(@latitude=41.94818455, @longitude=-87.65555899980043)]
 ```
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
